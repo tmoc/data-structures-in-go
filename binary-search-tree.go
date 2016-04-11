@@ -93,13 +93,18 @@ func (t *BST) Remove(value int) bool {
 		} else if t.root.left != nil && t.root.right == nil {
 			t.root = t.root.left
 		} else {
-			largestValueOnLeft := t.root.left
-			for largestValueOnLeft.right != nil {
-				largestValueOnLeft = largestValueOnLeft.right
+			largestOnLeft := t.root.left
+			for largestOnLeft.right != nil {
+				largestOnLeft = largestOnLeft.right
 			}
-			largetValueOnLeftParent := getParent(t, largestValueOnLeft.value)
-			t.root.value = largestValueOnLeft.value
-			largetValueOnLeftParent.right = nil
+			largestOnLeftParent := getParent(t, largestOnLeft.value)
+			t.root.value = largestOnLeft.value
+
+			if largestOnLeft.left != nil {
+				largestOnLeftParent.right = largestOnLeft.left
+			} else {
+			  largestOnLeftParent.right = nil
+			}
 		}
 		t.count--
 		return true
@@ -124,14 +129,19 @@ func (t *BST) Remove(value int) bool {
 			parentNode.right = nodeToRemove.left
 		}
 	} else {
-		largestValueNode := nodeToRemove.left
+		largestOnLeft := nodeToRemove.left
 
-		for largestValueNode.right != nil {
-			largestValueNode = largestValueNode.right
+		for largestOnLeft.right != nil {
+			largestOnLeft = largestOnLeft.right
 		}
-		largestValueParent := getParentNode(nodeToRemove, largestValueNode.value)
-		nodeToRemove.value = largestValueNode.value
-		largestValueParent.right = nil
+		largestOnLeftParent := getParentNode(nodeToRemove, largestOnLeft.value)
+		nodeToRemove.value = largestOnLeft.value
+
+		if largestOnLeft.left != nil {
+			largestOnLeftParent.right = largestOnLeft.left
+		} else {
+		  largestOnLeftParent.right = nil
+		}
 	}
 	t.count--
 	return true
