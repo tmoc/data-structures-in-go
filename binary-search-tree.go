@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package ds
 
 type node struct {
   value int
@@ -161,26 +159,4 @@ func findMinNode(n *node) int {
 
 func (t *BST) Min() int {
   return findMinNode(t.root)
-}
-
-func main() {
-  bst := new(BST)
-
-  bst.Insert(2)
-  bst.Insert(1)
-
-  fmt.Println(bst.Contains(2))
-  fmt.Println(bst.Contains(42))
-
-  bst.Remove(2)
-  bst.Remove(1)
-
-  fmt.Println(bst)
-
-  bst.Insert(1)
-  bst.Insert(5)
-  bst.Insert(200)
-
-  fmt.Println(bst.Max())
-  fmt.Println(bst.Min())
 }
