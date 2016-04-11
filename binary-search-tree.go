@@ -180,3 +180,19 @@ func (t *BST) PreOrder(fn process) {
     preOrderNodeTraversal(t.root, fn)
   }
 }
+
+func postOrderTraversal(n *node, fn process) {
+  if n.left != nil {
+    postOrderTraversal(n.left, fn)
+  }
+  if n.right != nil {
+    postOrderTraversal(n.right, fn)
+  }
+  fn(n.value)
+}
+
+func (t *BST) PostOrder(fn process) {
+  if t.root != nil {
+    postOrderTraversal(t.root, fn)
+  }
+}
