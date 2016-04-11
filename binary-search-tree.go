@@ -160,3 +160,23 @@ func findMinNode(n *node) int {
 func (t *BST) Min() int {
   return findMinNode(t.root)
 }
+
+// Use to process data.
+type process func(int)
+
+func preOrderNodeTraversal(n *node, fn process) {
+  fn(n.value)
+
+  if n.left != nil {
+    preOrderNodeTraversal(n.left, fn)
+  }
+  if n.right != nil {
+    preOrderNodeTraversal(n.right, fn)
+  }
+}
+
+func (t *BST) PreOrder(fn process) {
+  if t.root != nil {
+    preOrderNodeTraversal(t.root, fn)
+  }
+}
