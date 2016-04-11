@@ -115,3 +115,23 @@ func TestPostOrder(t *testing.T) {
     t.Errorf("items[2] should be 2")
   }
 }
+
+func TestInOrder(t *testing.T) {
+  bst := new(BST)
+  items := []int{}
+  bst.Insert(2)
+  bst.Insert(1)
+  bst.Insert(3)
+
+  bst.InOrder(func (x int) { items = append(items, x) })
+
+  if items[0] != 1 {
+    t.Errorf("items[0] should be 1")
+  }
+  if items[1] != 2 {
+    t.Errorf("items[1] should be 2")
+  }
+  if items[2] != 3 {
+    t.Errorf("items[2] should be 3")
+  }
+}

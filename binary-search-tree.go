@@ -196,3 +196,19 @@ func (t *BST) PostOrder(fn process) {
     postOrderTraversal(t.root, fn)
   }
 }
+
+func inOrderTraversal(n *node, fn process) {
+  if n.left != nil {
+    inOrderTraversal(n.left, fn)
+  }
+  fn(n.value)
+  if n.right != nil {
+    inOrderTraversal(n.right, fn)
+  }
+}
+
+func (t *BST) InOrder(fn process) {
+  if t.root != nil {
+    inOrderTraversal(t.root, fn)
+  }
+}
