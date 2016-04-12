@@ -111,7 +111,7 @@ func (t *BST) Remove(value int) bool {
 				if largestOnLeft.left != nil {
 					largestOnLeftParent.right = largestOnLeft.left
 				} else {
-				  largestOnLeftParent.right = nil
+					largestOnLeftParent.right = nil
 				}
 			}
 		}
@@ -156,7 +156,7 @@ func (t *BST) Remove(value int) bool {
 			if largestOnLeft.left != nil {
 				largestOnLeftParent.right = largestOnLeft.left
 			} else {
-			  largestOnLeftParent.right = nil
+				largestOnLeftParent.right = nil
 			}
 		}
 	}
