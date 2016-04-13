@@ -31,7 +31,7 @@ func leftRotation(n *node) *node {
 	n.right = oldRight.left
 	oldRight.left = n
 	n.height = max(height(n.left), height(n.right)) + 1
-	oldRight.height = max(height(oldRight.right), height(oldRight.left)) + 1
+	oldRight.height = max(height(oldRight.left), height(oldRight.right)) + 1
 	return oldRight
 }
 
@@ -56,8 +56,8 @@ func rightAndLeftRotation(n *node) *node {
 	return n
 }
 
-func checkBalance(n *node) {
-	if height(n.left)-height(n.right) == 2 { // Left to high, must rebalance.
+func checkBalance(n *node) *node {
+	if height(n.left)-height(n.right) == 2 { // Left too high, must rebalance.
 		if height(n.left.left)-height(n.left.right) > 0 { // Left balance-factor subtree.
 			n = rightRotation(n)
 		} else {
@@ -69,8 +69,10 @@ func checkBalance(n *node) {
 		} else {
 			n = rightAndLeftRotation(n)
 		}
+	} else {
+		n.height = max(height(n.left), height(n.right)) + 1 // Commenting this out simply means no rebalancing happens. Heights are always 0.
 	}
-	n.height = max(height(n.left), height(n.right)) + 1
+	return n
 }
 
 func addNode(n *node, value int) *node {
@@ -83,8 +85,7 @@ func addNode(n *node, value int) *node {
 	} else {
 		n.right = addNode(n.right, value)
 	}
-	checkBalance(n)
-	return n
+	return checkBalance(n)
 }
 
 func (t *AVLTree) Insert(value int) {
@@ -134,98 +135,98 @@ func getParent(t *AVLTree, value int) *node {
 	return getParentNode(t.root, value)
 }
 
-func (t *AVLTree) Remove(value int) bool {
-	nodeToRemove := getNode(t.root, value)
-
-	if nodeToRemove == nil {
-		return false
-	}
-
-	if t.count == 1 {
-		t.root = nil
-		t.count = 0
-		return true
-	}
-
-	parentNode := getParent(t, value)
-
-	// Covers edge case; removing the root and there is more than 1 node.
-	if parentNode == nil {
-		if t.root.left == nil && t.root.right != nil {
-			t.root = t.root.right
-		} else if t.root.left != nil && t.root.right == nil {
-			t.root = t.root.left
-		} else {
-			largestOnLeft := t.root.left
-			parentIsNodeToRemove := true
-
-			for largestOnLeft.right != nil {
-				largestOnLeft = largestOnLeft.right
-				parentIsNodeToRemove = false
-			}
-
-			if parentIsNodeToRemove == true {
-				t.root.value = t.root.left.value
-				t.root.left = nil
-			} else {
-				largestOnLeftParent := getParent(t, largestOnLeft.value)
-				t.root.value = largestOnLeft.value
-
-				if largestOnLeft.left != nil {
-					largestOnLeftParent.right = largestOnLeft.left
-				} else {
-					largestOnLeftParent.right = nil
-				}
-			}
-		}
-		t.count--
-		return true
-	}
-
-	if nodeToRemove.left == nil && nodeToRemove.right == nil {
-		if nodeToRemove.value < parentNode.value {
-			parentNode.left = nil
-		} else {
-			parentNode.right = nil
-		}
-	} else if nodeToRemove.left == nil && nodeToRemove.right != nil {
-		if nodeToRemove.value < parentNode.value {
-			parentNode.left = nodeToRemove.right
-		} else {
-			parentNode.right = nodeToRemove.right
-		}
-	} else if nodeToRemove.left != nil && nodeToRemove.right == nil {
-		if nodeToRemove.value < parentNode.value {
-			parentNode.left = nodeToRemove.left
-		} else {
-			parentNode.right = nodeToRemove.left
-		}
-	} else {
-		largestOnLeft := nodeToRemove.left
-		parentIsNodeToRemove := true
-
-		for largestOnLeft.right != nil {
-			largestOnLeft = largestOnLeft.right
-			parentIsNodeToRemove = false
-		}
-
-		if parentIsNodeToRemove == true {
-			nodeToRemove.value = nodeToRemove.left.value
-			nodeToRemove.left = nil
-		} else {
-			largestOnLeftParent := getParentNode(nodeToRemove, largestOnLeft.value)
-			nodeToRemove.value = largestOnLeft.value
-
-			if largestOnLeft.left != nil {
-				largestOnLeftParent.right = largestOnLeft.left
-			} else {
-				largestOnLeftParent.right = nil
-			}
-		}
-	}
-	t.count--
-	return true
-}
+// func (t *AVLTree) Remove(value int) bool {
+// 	nodeToRemove := getNode(t.root, value)
+//
+// 	if nodeToRemove == nil {
+// 		return false
+// 	}
+//
+// 	if t.count == 1 {
+// 		t.root = nil
+// 		t.count = 0
+// 		return true
+// 	}
+//
+// 	parentNode := getParent(t, value)
+//
+// 	// Covers edge case; removing the root and there is more than 1 node.
+// 	if parentNode == nil {
+// 		if t.root.left == nil && t.root.right != nil {
+// 			t.root = t.root.right
+// 		} else if t.root.left != nil && t.root.right == nil {
+// 			t.root = t.root.left
+// 		} else {
+// 			largestOnLeft := t.root.left
+// 			parentIsNodeToRemove := true
+//
+// 			for largestOnLeft.right != nil {
+// 				largestOnLeft = largestOnLeft.right
+// 				parentIsNodeToRemove = false
+// 			}
+//
+// 			if parentIsNodeToRemove == true {
+// 				t.root.value = t.root.left.value
+// 				t.root.left = nil
+// 			} else {
+// 				largestOnLeftParent := getParent(t, largestOnLeft.value)
+// 				t.root.value = largestOnLeft.value
+//
+// 				if largestOnLeft.left != nil {
+// 					largestOnLeftParent.right = largestOnLeft.left
+// 				} else {
+// 					largestOnLeftParent.right = nil
+// 				}
+// 			}
+// 		}
+// 		t.count--
+// 		return true
+// 	}
+//
+// 	if nodeToRemove.left == nil && nodeToRemove.right == nil {
+// 		if nodeToRemove.value < parentNode.value {
+// 			parentNode.left = nil
+// 		} else {
+// 			parentNode.right = nil
+// 		}
+// 	} else if nodeToRemove.left == nil && nodeToRemove.right != nil {
+// 		if nodeToRemove.value < parentNode.value {
+// 			parentNode.left = nodeToRemove.right
+// 		} else {
+// 			parentNode.right = nodeToRemove.right
+// 		}
+// 	} else if nodeToRemove.left != nil && nodeToRemove.right == nil {
+// 		if nodeToRemove.value < parentNode.value {
+// 			parentNode.left = nodeToRemove.left
+// 		} else {
+// 			parentNode.right = nodeToRemove.left
+// 		}
+// 	} else {
+// 		largestOnLeft := nodeToRemove.left
+// 		parentIsNodeToRemove := true
+//
+// 		for largestOnLeft.right != nil {
+// 			largestOnLeft = largestOnLeft.right
+// 			parentIsNodeToRemove = false
+// 		}
+//
+// 		if parentIsNodeToRemove == true {
+// 			nodeToRemove.value = nodeToRemove.left.value
+// 			nodeToRemove.left = nil
+// 		} else {
+// 			largestOnLeftParent := getParentNode(nodeToRemove, largestOnLeft.value)
+// 			nodeToRemove.value = largestOnLeft.value
+//
+// 			if largestOnLeft.left != nil {
+// 				largestOnLeftParent.right = largestOnLeft.left
+// 			} else {
+// 				largestOnLeftParent.right = nil
+// 			}
+// 		}
+// 	}
+// 	t.count--
+// 	return true
+// }
 
 func findMaxNode(n *node) int {
 	if n.right == nil {
