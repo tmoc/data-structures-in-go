@@ -3,86 +3,86 @@ package avltree
 import "testing"
 
 func TestInsert(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 
-	bst.Insert(1)
-	bst.Insert(2)
-	bst.Insert(3)
-	bst.Insert(300)
-	bst.Insert(18)
-	bst.Insert(45)
+	avlTree.Insert(1)
+	avlTree.Insert(2)
+	avlTree.Insert(3)
+	avlTree.Insert(300)
+	avlTree.Insert(18)
+	avlTree.Insert(45)
 
-	if bst.Contains(18) != true {
-		t.Errorf("bst.Contains(18) should be true")
+	if avlTree.Contains(18) != true {
+		t.Errorf("avlTree.Contains(18) should be true")
 	}
 
-	if bst.Contains(2) != true {
-		t.Errorf("bst.Contains(2) should be true")
+	if avlTree.Contains(2) != true {
+		t.Errorf("avlTree.Contains(2) should be true")
 	}
 }
 
 // func TestRemove(t *testing.T) {
-// 	bst := new(AVLTree)
+// 	avlTree := new(AVLTree)
 //
-// 	bst.Insert(1)
-// 	bst.Insert(300)
-// 	bst.Insert(18)
-// 	bst.Insert(45)
-// 	bst.Insert(2)
+// 	avlTree.Insert(1)
+// 	avlTree.Insert(300)
+// 	avlTree.Insert(18)
+// 	avlTree.Insert(45)
+// 	avlTree.Insert(2)
 //
-// 	if bst.Contains(300) != true {
-// 		t.Errorf("bst.Contains(300) should be true")
+// 	if avlTree.Contains(300) != true {
+// 		t.Errorf("avlTree.Contains(300) should be true")
 // 	}
-// 	if bst.Contains(2) != true {
-// 		t.Errorf("bst.Contains(2) should be true")
+// 	if avlTree.Contains(2) != true {
+// 		t.Errorf("avlTree.Contains(2) should be true")
 // 	}
 //
-// 	bst.Remove(300)
-// 	if bst.Contains(300) == true {
-// 		t.Errorf("bst.Contains(300) should be false")
+// 	avlTree.Remove(300)
+// 	if avlTree.Contains(300) == true {
+// 		t.Errorf("avlTree.Contains(300) should be false")
 // 	}
-// 	bst.Remove(2)
-// 	if bst.Contains(2) == true {
-// 		t.Errorf("bst.Contains(2) should be false")
+// 	avlTree.Remove(2)
+// 	if avlTree.Contains(2) == true {
+// 		t.Errorf("avlTree.Contains(2) should be false")
 // 	}
 // }
 
 func TestMax(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 
-	bst.Insert(1)
-	bst.Insert(300)
-	bst.Insert(18)
-	bst.Insert(45)
-	bst.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(300)
+	avlTree.Insert(18)
+	avlTree.Insert(45)
+	avlTree.Insert(2)
 
-	if bst.Max() != 300 {
-		t.Errorf("bst.Max() should be 300")
+	if avlTree.Max() != 300 {
+		t.Errorf("avlTree.Max() should be 300")
 	}
 }
 
 func TestMin(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 
-	bst.Insert(1)
-	bst.Insert(300)
-	bst.Insert(18)
-	bst.Insert(45)
-	bst.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(300)
+	avlTree.Insert(18)
+	avlTree.Insert(45)
+	avlTree.Insert(2)
 
-	if bst.Min() != 1 {
-		t.Errorf("bst.Min() should be 1")
+	if avlTree.Min() != 1 {
+		t.Errorf("avlTree.Min() should be 1")
 	}
 }
 
 func TestPreOrder(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 	items := []int{}
-	bst.Insert(2)
-	bst.Insert(1)
-	bst.Insert(3)
+	avlTree.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(3)
 
-	bst.PreOrder(func(x int) { items = append(items, x) })
+	avlTree.PreOrder(func(x int) { items = append(items, x) })
 
 	if items[0] != 2 {
 		t.Errorf("items[0] should be 2")
@@ -96,13 +96,13 @@ func TestPreOrder(t *testing.T) {
 }
 
 func TestPostOrder(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 	items := []int{}
-	bst.Insert(2)
-	bst.Insert(1)
-	bst.Insert(3)
+	avlTree.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(3)
 
-	bst.PostOrder(func(x int) { items = append(items, x) })
+	avlTree.PostOrder(func(x int) { items = append(items, x) })
 
 	if items[0] != 1 {
 		t.Errorf("items[0] should be 1")
@@ -116,13 +116,13 @@ func TestPostOrder(t *testing.T) {
 }
 
 func TestInOrder(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 	items := []int{}
-	bst.Insert(2)
-	bst.Insert(1)
-	bst.Insert(3)
+	avlTree.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(3)
 
-	bst.InOrder(func(x int) { items = append(items, x) })
+	avlTree.InOrder(func(x int) { items = append(items, x) })
 
 	if items[0] != 1 {
 		t.Errorf("items[0] should be 1")
@@ -136,13 +136,13 @@ func TestInOrder(t *testing.T) {
 }
 
 func TestBreadthFirst(t *testing.T) {
-	bst := new(AVLTree)
+	avlTree := new(AVLTree)
 	items := []int{}
-	bst.Insert(2)
-	bst.Insert(1)
-	bst.Insert(3)
+	avlTree.Insert(2)
+	avlTree.Insert(1)
+	avlTree.Insert(3)
 
-	bst.BreadthFirst(func(x int) { items = append(items, x) })
+	avlTree.BreadthFirst(func(x int) { items = append(items, x) })
 
 	if items[0] != 2 {
 		t.Errorf("items[0] should be 2")
