@@ -12,12 +12,12 @@ func TestInsert(t *testing.T) {
 	avlTree.Insert(18)
 	avlTree.Insert(45)
 
-	if avlTree.Contains(18) != true {
-		t.Errorf("avlTree.Contains(18) should be true")
+	if v := avlTree.Contains(18); v != true {
+		t.Errorf("avlTree.Contains(18) should be true, got %v", v)
 	}
 
-	if avlTree.Contains(2) != true {
-		t.Errorf("avlTree.Contains(2) should be true")
+	if v := avlTree.Contains(2); v != true {
+		t.Errorf("avlTree.Contains(2) should be true, got %v", v)
 	}
 }
 
@@ -56,8 +56,8 @@ func TestMax(t *testing.T) {
 	avlTree.Insert(45)
 	avlTree.Insert(2)
 
-	if avlTree.Max() != 300 {
-		t.Errorf("avlTree.Max() should be 300")
+	if v := avlTree.Max(); v != 300 {
+		t.Errorf("avlTree.Max() should be 300, got %v", v)
 	}
 }
 
@@ -70,8 +70,8 @@ func TestMin(t *testing.T) {
 	avlTree.Insert(45)
 	avlTree.Insert(2)
 
-	if avlTree.Min() != 1 {
-		t.Errorf("avlTree.Min() should be 1")
+	if v := avlTree.Min(); v != 1 {
+		t.Errorf("avlTree.Min() should be 1, got %v", v)
 	}
 }
 
@@ -84,14 +84,14 @@ func TestPreOrder(t *testing.T) {
 
 	avlTree.PreOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 2 {
-		t.Errorf("items[0] should be 2")
+	if v := items[0]; v != 2 {
+		t.Errorf("items[0] should be 2, got %v", v)
 	}
-	if items[1] != 1 {
-		t.Errorf("items[1] should be 1")
+	if v := items[1]; v != 1 {
+		t.Errorf("items[1] should be 1, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3")
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3, got %v", v)
 	}
 }
 
@@ -104,14 +104,14 @@ func TestPostOrder(t *testing.T) {
 
 	avlTree.PostOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 1 {
-		t.Errorf("items[0] should be 1")
+	if v := items[0]; v != 1 {
+		t.Errorf("items[0] should be 1, got %v", v)
 	}
-	if items[1] != 3 {
-		t.Errorf("items[1] should be 3")
+	if v := items[1]; v != 3 {
+		t.Errorf("items[1] should be 3, got %v", v)
 	}
-	if items[2] != 2 {
-		t.Errorf("items[2] should be 2")
+	if v := items[2]; v != 2 {
+		t.Errorf("items[2] should be 2, got %v", v)
 	}
 }
 
@@ -124,14 +124,14 @@ func TestInOrder(t *testing.T) {
 
 	avlTree.InOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 1 {
-		t.Errorf("items[0] should be 1")
+	if v := items[0]; v != 1 {
+		t.Errorf("items[0] should be 1, got %v", v)
 	}
-	if items[1] != 2 {
-		t.Errorf("items[1] should be 2")
+	if v := items[1]; v != 2 {
+		t.Errorf("items[1] should be 2, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3")
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3, got %v", v)
 	}
 }
 
@@ -144,13 +144,13 @@ func TestBreadthFirst(t *testing.T) {
 
 	avlTree.BreadthFirst(func(x int) { items = append(items, x) })
 
-	if items[0] != 2 {
-		t.Errorf("items[0] should be 2")
+	if v := items[0]; v != 2 {
+		t.Errorf("items[0] should be 2, got %v", v)
 	}
-	if items[1] != 1 {
-		t.Errorf("items[1] should be 1, got %d", items[1])
+	if v := items[1]; v != 1 {
+		t.Errorf("items[1] should be 1, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3 got %d", items[2])
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3 got %v", v)
 	}
 }
