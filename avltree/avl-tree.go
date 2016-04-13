@@ -57,14 +57,14 @@ func rightAndLeftRotation(n *node) *node {
 }
 
 func checkBalance(n *node) {
-	if height(n.left)-height(n.right) == 2 { // Must rebalance.
-		if height(n.left.left)-height(n.left.right) > 0 {
+	if height(n.left)-height(n.right) == 2 { // Left to high, must rebalance.
+		if height(n.left.left)-height(n.left.right) > 0 { // Left balance-factor subtree.
 			n = rightRotation(n)
 		} else {
 			n = leftAndRightRotation(n)
 		}
-	} else if height(n.left)-height(n.right) == -2 { // Must rebalance.
-		if height(n.left.left)-height(n.left.right) < 0 {
+	} else if height(n.left)-height(n.right) == -2 { // Right too high, must rebalance.
+		if height(n.right.left)-height(n.right.right) < 0 { // Right balance-factor subtree.
 			n = leftRotation(n)
 		} else {
 			n = rightAndLeftRotation(n)
