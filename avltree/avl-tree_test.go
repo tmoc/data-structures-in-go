@@ -1,9 +1,9 @@
-package ds
+package avltree
 
 import "testing"
 
 func TestInsert(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 
 	bst.Insert(1)
 	bst.Insert(300)
@@ -23,7 +23,7 @@ func TestInsert(t *testing.T) {
 }
 
 func TestRemove(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 
 	bst.Insert(1)
 	bst.Insert(300)
@@ -49,7 +49,7 @@ func TestRemove(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 
 	bst.Insert(1)
 	bst.Insert(300)
@@ -63,7 +63,7 @@ func TestMax(t *testing.T) {
 }
 
 func TestMin(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 
 	bst.Insert(1)
 	bst.Insert(300)
@@ -77,7 +77,7 @@ func TestMin(t *testing.T) {
 }
 
 func TestPreOrder(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 	items := []int{}
 	bst.Insert(2)
 	bst.Insert(1)
@@ -97,7 +97,7 @@ func TestPreOrder(t *testing.T) {
 }
 
 func TestPostOrder(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 	items := []int{}
 	bst.Insert(2)
 	bst.Insert(1)
@@ -117,7 +117,7 @@ func TestPostOrder(t *testing.T) {
 }
 
 func TestInOrder(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 	items := []int{}
 	bst.Insert(2)
 	bst.Insert(1)
@@ -137,7 +137,7 @@ func TestInOrder(t *testing.T) {
 }
 
 func TestBreadthFirst(t *testing.T) {
-	bst := new(BST)
+	bst := new(AVLTree)
 	items := []int{}
 	bst.Insert(2)
 	bst.Insert(1)

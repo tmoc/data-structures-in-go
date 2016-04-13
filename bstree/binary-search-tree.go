@@ -1,4 +1,4 @@
-package ds
+package bstree
 
 type node struct {
 	value int
@@ -6,7 +6,7 @@ type node struct {
 	right *node
 }
 
-type BST struct {
+type BinarySearchTree struct {
 	root  *node
 	count int
 }
@@ -24,7 +24,7 @@ func addNode(n *node, value int) *node {
 	return n
 }
 
-func (t *BST) Insert(value int) {
+func (t *BinarySearchTree) Insert(value int) {
 	t.root = addNode(t.root, value)
 	t.count++
 }
@@ -41,7 +41,7 @@ func getNode(n *node, value int) *node {
 	}
 }
 
-func (t *BST) Contains(value int) bool {
+func (t *BinarySearchTree) Contains(value int) bool {
 	if getNode(t.root, value) == nil {
 		return false
 	}
@@ -64,14 +64,14 @@ func getParentNode(n *node, value int) *node {
 	}
 }
 
-func getParent(t *BST, value int) *node {
+func getParent(t *BinarySearchTree, value int) *node {
 	if value == t.root.value || t.count < 2 {
 		return nil
 	}
 	return getParentNode(t.root, value)
 }
 
-func (t *BST) Remove(value int) bool {
+func (t *BinarySearchTree) Remove(value int) bool {
 	nodeToRemove := getNode(t.root, value)
 
 	if nodeToRemove == nil {
@@ -172,7 +172,7 @@ func findMaxNode(n *node) int {
 	}
 }
 
-func (t *BST) Max() int {
+func (t *BinarySearchTree) Max() int {
 	return findMaxNode(t.root)
 }
 
@@ -184,7 +184,7 @@ func findMinNode(n *node) int {
 	}
 }
 
-func (t *BST) Min() int {
+func (t *BinarySearchTree) Min() int {
 	return findMinNode(t.root)
 }
 
@@ -202,7 +202,7 @@ func preOrderNodeTraversal(n *node, fn process) {
 	}
 }
 
-func (t *BST) PreOrder(fn process) {
+func (t *BinarySearchTree) PreOrder(fn process) {
 	if t.root != nil {
 		preOrderNodeTraversal(t.root, fn)
 	}
@@ -218,7 +218,7 @@ func postOrderTraversal(n *node, fn process) {
 	fn(n.value)
 }
 
-func (t *BST) PostOrder(fn process) {
+func (t *BinarySearchTree) PostOrder(fn process) {
 	if t.root != nil {
 		postOrderTraversal(t.root, fn)
 	}
@@ -234,7 +234,7 @@ func inOrderTraversal(n *node, fn process) {
 	}
 }
 
-func (t *BST) InOrder(fn process) {
+func (t *BinarySearchTree) InOrder(fn process) {
 	if t.root != nil {
 		inOrderTraversal(t.root, fn)
 	}
@@ -265,7 +265,7 @@ func breadthFirstTraversal(n *node, fn process) {
 	}
 }
 
-func (t *BST) BreadthFirst(fn process) {
+func (t *BinarySearchTree) BreadthFirst(fn process) {
 	if t.root != nil {
 		breadthFirstTraversal(t.root, fn)
 	}
