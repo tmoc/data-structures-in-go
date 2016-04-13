@@ -11,14 +11,14 @@ func TestInsert(t *testing.T) {
 	bst.Insert(45)
 	bst.Insert(2)
 
-	if bst.Contains(18) != true {
-		t.Errorf("bst.Contains(18) should be true")
+	if v := bst.Contains(18); v != true {
+		t.Errorf("bst.Contains(18) should be true, got %v", v)
 	}
 
 	bst.Insert(2)
 
-	if bst.Contains(2) != true {
-		t.Errorf("bst.Contains(2) should be true")
+	if v := bst.Contains(2); v != true {
+		t.Errorf("bst.Contains(2) should be true, got %v", v)
 	}
 }
 
@@ -31,20 +31,22 @@ func TestRemove(t *testing.T) {
 	bst.Insert(45)
 	bst.Insert(2)
 
-	if bst.Contains(300) != true {
-		t.Errorf("bst.Contains(300) should be true")
+	if v := bst.Contains(300); v != true {
+		t.Errorf("bst.Contains(300) should be true, got %v", v)
 	}
-	if bst.Contains(2) != true {
-		t.Errorf("bst.Contains(2) should be true")
+	if v := bst.Contains(2); v != true {
+		t.Errorf("bst.Contains(2) should be true, got %v", v)
 	}
 
 	bst.Remove(300)
-	if bst.Contains(300) == true {
-		t.Errorf("bst.Contains(300) should be false")
+
+	if v := bst.Contains(300); v != false {
+		t.Errorf("bst.Contains(300) should be false, got %v", v)
 	}
 	bst.Remove(2)
-	if bst.Contains(2) == true {
-		t.Errorf("bst.Contains(2) should be false")
+
+	if v := bst.Contains(2); v != false {
+		t.Errorf("bst.Contains(2) should be false, got %v", v)
 	}
 }
 
@@ -57,8 +59,8 @@ func TestMax(t *testing.T) {
 	bst.Insert(45)
 	bst.Insert(2)
 
-	if bst.Max() != 300 {
-		t.Errorf("bst.Max() should be 300")
+	if v := bst.Max(); v != 300 {
+		t.Errorf("bst.Max() should be 300, got %v", v)
 	}
 }
 
@@ -71,8 +73,8 @@ func TestMin(t *testing.T) {
 	bst.Insert(45)
 	bst.Insert(2)
 
-	if bst.Min() != 1 {
-		t.Errorf("bst.Min() should be 1")
+	if v := bst.Min(); v != 1 {
+		t.Errorf("bst.Min() should be 1, got %v", v)
 	}
 }
 
@@ -85,14 +87,14 @@ func TestPreOrder(t *testing.T) {
 
 	bst.PreOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 2 {
-		t.Errorf("items[0] should be 2")
+	if v := items[0]; v != 2 {
+		t.Errorf("items[0] should be 2, got %v", v)
 	}
-	if items[1] != 1 {
-		t.Errorf("items[1] should be 1")
+	if v := items[1]; v != 1 {
+		t.Errorf("items[1] should be 1, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3")
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3, got %v", v)
 	}
 }
 
@@ -105,14 +107,14 @@ func TestPostOrder(t *testing.T) {
 
 	bst.PostOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 1 {
-		t.Errorf("items[0] should be 1")
+	if v := items[0]; v != 1 {
+		t.Errorf("items[0] should be 1, got %v", v)
 	}
-	if items[1] != 3 {
-		t.Errorf("items[1] should be 3")
+	if v := items[1]; v != 3 {
+		t.Errorf("items[1] should be 3, got %v", v)
 	}
-	if items[2] != 2 {
-		t.Errorf("items[2] should be 2")
+	if v := items[2]; v != 2 {
+		t.Errorf("items[2] should be 2, got %v", v)
 	}
 }
 
@@ -125,14 +127,14 @@ func TestInOrder(t *testing.T) {
 
 	bst.InOrder(func(x int) { items = append(items, x) })
 
-	if items[0] != 1 {
-		t.Errorf("items[0] should be 1")
+	if v := items[0]; v != 1 {
+		t.Errorf("items[0] should be 1, got %v", v)
 	}
-	if items[1] != 2 {
-		t.Errorf("items[1] should be 2")
+	if v := items[1]; v != 2 {
+		t.Errorf("items[1] should be 2, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3")
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3, got %v", v)
 	}
 }
 
@@ -145,13 +147,13 @@ func TestBreadthFirst(t *testing.T) {
 
 	bst.BreadthFirst(func(x int) { items = append(items, x) })
 
-	if items[0] != 2 {
-		t.Errorf("items[0] should be 2")
+	if v := items[0]; v != 2 {
+		t.Errorf("items[0] should be 2, got %v", v)
 	}
-	if items[1] != 1 {
-		t.Errorf("items[1] should be 1, got %d", items[1])
+	if v := items[1]; v != 1 {
+		t.Errorf("items[1] should be 1, got %v", v)
 	}
-	if items[2] != 3 {
-		t.Errorf("items[2] should be 3 got %d", items[2])
+	if v := items[2]; v != 3 {
+		t.Errorf("items[2] should be 3 got %v", v)
 	}
 }

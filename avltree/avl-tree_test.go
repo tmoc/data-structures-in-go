@@ -30,20 +30,20 @@ func TestInsert(t *testing.T) {
 // 	avlTree.Insert(45)
 // 	avlTree.Insert(2)
 //
-// 	if avlTree.Contains(300) != true {
-// 		t.Errorf("avlTree.Contains(300) should be true")
+// 	if v := avlTree.Contains(300); v != true {
+// 		t.Errorf("avlTree.Contains(300) should be true, got %v", v)
 // 	}
-// 	if avlTree.Contains(2) != true {
-// 		t.Errorf("avlTree.Contains(2) should be true")
+// 	if v := avlTree.Contains(2); v != true {
+// 		t.Errorf("avlTree.Contains(2) should be true, got %v", v)
 // 	}
 //
 // 	avlTree.Remove(300)
-// 	if avlTree.Contains(300) == true {
-// 		t.Errorf("avlTree.Contains(300) should be false")
+// 	if v := avlTree.Contains(300); v != false {
+// 		t.Errorf("avlTree.Contains(300) should be false, got %v", v)
 // 	}
 // 	avlTree.Remove(2)
-// 	if avlTree.Contains(2) == true {
-// 		t.Errorf("avlTree.Contains(2) should be false")
+// 	if v := avlTree.Contains(2); v != false {
+// 		t.Errorf("avlTree.Contains(2) should be false, got %v", v)
 // 	}
 // }
 
