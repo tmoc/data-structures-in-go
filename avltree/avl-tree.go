@@ -135,98 +135,118 @@ func getParent(t *AVLTree, value int) *node {
 	return getParentNode(t.root, value)
 }
 
-// func (t *AVLTree) Remove(value int) bool {
-// 	nodeToRemove := getNode(t.root, value)
-//
-// 	if nodeToRemove == nil {
-// 		return false
-// 	}
-//
-// 	if t.count == 1 {
-// 		t.root = nil
-// 		t.count = 0
-// 		return true
-// 	}
-//
-// 	parentNode := getParent(t, value)
-//
-// 	// Covers edge case; removing the root and there is more than 1 node.
-// 	if parentNode == nil {
-// 		if t.root.left == nil && t.root.right != nil {
-// 			t.root = t.root.right
-// 		} else if t.root.left != nil && t.root.right == nil {
-// 			t.root = t.root.left
-// 		} else {
-// 			largestOnLeft := t.root.left
-// 			parentIsNodeToRemove := true
-//
-// 			for largestOnLeft.right != nil {
-// 				largestOnLeft = largestOnLeft.right
-// 				parentIsNodeToRemove = false
-// 			}
-//
-// 			if parentIsNodeToRemove == true {
-// 				t.root.value = t.root.left.value
-// 				t.root.left = nil
-// 			} else {
-// 				largestOnLeftParent := getParent(t, largestOnLeft.value)
-// 				t.root.value = largestOnLeft.value
-//
-// 				if largestOnLeft.left != nil {
-// 					largestOnLeftParent.right = largestOnLeft.left
-// 				} else {
-// 					largestOnLeftParent.right = nil
-// 				}
-// 			}
-// 		}
-// 		t.count--
-// 		return true
-// 	}
-//
-// 	if nodeToRemove.left == nil && nodeToRemove.right == nil {
-// 		if nodeToRemove.value < parentNode.value {
-// 			parentNode.left = nil
-// 		} else {
-// 			parentNode.right = nil
-// 		}
-// 	} else if nodeToRemove.left == nil && nodeToRemove.right != nil {
-// 		if nodeToRemove.value < parentNode.value {
-// 			parentNode.left = nodeToRemove.right
-// 		} else {
-// 			parentNode.right = nodeToRemove.right
-// 		}
-// 	} else if nodeToRemove.left != nil && nodeToRemove.right == nil {
-// 		if nodeToRemove.value < parentNode.value {
-// 			parentNode.left = nodeToRemove.left
-// 		} else {
-// 			parentNode.right = nodeToRemove.left
-// 		}
-// 	} else {
-// 		largestOnLeft := nodeToRemove.left
-// 		parentIsNodeToRemove := true
-//
-// 		for largestOnLeft.right != nil {
-// 			largestOnLeft = largestOnLeft.right
-// 			parentIsNodeToRemove = false
-// 		}
-//
-// 		if parentIsNodeToRemove == true {
-// 			nodeToRemove.value = nodeToRemove.left.value
-// 			nodeToRemove.left = nil
-// 		} else {
-// 			largestOnLeftParent := getParentNode(nodeToRemove, largestOnLeft.value)
-// 			nodeToRemove.value = largestOnLeft.value
-//
-// 			if largestOnLeft.left != nil {
-// 				largestOnLeftParent.right = largestOnLeft.left
-// 			} else {
-// 				largestOnLeftParent.right = nil
-// 			}
-// 		}
-// 	}
-// 	t.count--
-// 	return true
-// }
+func (t *AVLTree) Remove(value int) bool {
+	// Stack of visited nodes.
+	pathStack := []*node{}
+	nodeToRemove := t.root
+
+	for nodeToRemove != nil && value != nodeToRemove.value {
+		pathStack = append(pathStack, nodeToRemove)
+
+		if value < nodeToRemove.value {
+			nodeToRemove = nodeToRemove.left
+		} else {
+			nodeToRemove = nodeToRemove.right
+		}
+	}
+
+	if nodeToRemove == nil {
+		return false
+	}
+
+	if t.count == 1 {
+		t.root = nil
+		t.count = 0
+		return true
+	}
+
+	parentNode := getParent(t, value)
+
+	// Covers edge case; removing the root and there is more than 1 node.
+	if parentNode == nil {
+		if t.root.left == nil && t.root.right != nil {
+			t.root = t.root.right
+		} else if t.root.left != nil && t.root.right == nil {
+			t.root = t.root.left
+		} else {
+			largestOnLeft := t.root.left
+			parentIsNodeToRemove := true
+
+			for largestOnLeft.right != nil {
+				largestOnLeft = largestOnLeft.right
+				parentIsNodeToRemove = false
+			}
+
+			if parentIsNodeToRemove == true {
+				t.root.value = t.root.left.value
+				t.root.left = nil
+			} else {
+				largestOnLeftParent := getParent(t, largestOnLeft.value)
+				t.root.value = largestOnLeft.value
+
+				if largestOnLeft.left != nil {
+					largestOnLeftParent.right = largestOnLeft.left
+				} else {
+					largestOnLeftParent.right = nil
+				}
+			}
+		}
+		t.root = checkBalance(t.root)
+		t.count--
+		return true
+	}
+
+	if nodeToRemove.left == nil && nodeToRemove.right == nil {
+		if nodeToRemove.value < parentNode.value {
+			parentNode.left = nil
+		} else {
+			parentNode.right = nil
+		}
+	} else if nodeToRemove.left == nil && nodeToRemove.right != nil {
+		if nodeToRemove.value < parentNode.value {
+			parentNode.left = nodeToRemove.right
+		} else {
+			parentNode.right = nodeToRemove.right
+		}
+	} else if nodeToRemove.left != nil && nodeToRemove.right == nil {
+		if nodeToRemove.value < parentNode.value {
+			parentNode.left = nodeToRemove.left
+		} else {
+			parentNode.right = nodeToRemove.left
+		}
+	} else {
+		largestOnLeft := nodeToRemove.left
+		parentIsNodeToRemove := true
+
+		for largestOnLeft.right != nil {
+			largestOnLeft = largestOnLeft.right
+			parentIsNodeToRemove = false
+		}
+
+		if parentIsNodeToRemove == true {
+			nodeToRemove.value = nodeToRemove.left.value
+			nodeToRemove.left = nil
+		} else {
+			largestOnLeftParent := getParentNode(nodeToRemove, largestOnLeft.value)
+			nodeToRemove.value = largestOnLeft.value
+
+			if largestOnLeft.left != nil {
+				largestOnLeftParent.right = largestOnLeft.left
+			} else {
+				largestOnLeftParent.right = nil
+			}
+		}
+	}
+
+	for len(pathStack) != 0 {
+		pathNode := pathStack[len(pathStack)-1]
+		pathNode = checkBalance(pathNode)
+		pathStack = pathStack[:len(pathStack)-1]
+	}
+
+	t.count--
+	return true
+}
 
 func findMaxNode(n *node) int {
 	if n.right == nil {
