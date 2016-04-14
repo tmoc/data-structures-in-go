@@ -138,6 +138,7 @@ func getParent(t *AVLTree, value int) *node {
 func (t *AVLTree) Remove(value int) bool {
 	// Stack of visited nodes.
 	pathStack := []*node{}
+
 	nodeToRemove := t.root
 
 	for nodeToRemove != nil && value != nodeToRemove.value {
@@ -238,10 +239,9 @@ func (t *AVLTree) Remove(value int) bool {
 		}
 	}
 
-	for len(pathStack) != 0 {
-		pathNode := pathStack[len(pathStack)-1]
-		pathNode = checkBalance(pathNode)
-		pathStack = pathStack[:len(pathStack)-1]
+	// Rebalance nodes on path.
+	for i := len(pathStack) - 1; i > -1; i-- {
+		pathStack[i] = checkBalance(pathStack[i])
 	}
 
 	t.count--
